@@ -1,11 +1,12 @@
 /** @jsx React.DOM */
 var director = require('director');
 var React = require('react');
+var MainComponent = require('components/MainComponent');
 
 var woopApp = function(channel = 'all') {
   ChannelActions.change(channel);
   React.render(
-  <h1> dette funkær</h1>
+  <MainComponent />
   );
 };
 
