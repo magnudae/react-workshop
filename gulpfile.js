@@ -4,6 +4,7 @@ var path = require('path');
 var nodemon = require('gulp-nodemon');
 var gutil = require('gulp-util');
 var concat      = require('gulp-concat');
+var connect = require('gulp-connect');
 var browserify = require('gulp-browserify');
 var jshint      = require('gulp-jshint');
 var hbsfy = require('hbsfy');
@@ -11,6 +12,13 @@ var es6ify = require('es6ify');
 
 var styleDir = './public/stylesheets';
 
+gulp.task('server', function() {
+  connect.server({
+    root: 'views/index.html',
+    port: 4000,
+    livereload: true
+  });
+});
 
 gulp.task('less', function () {
   return gulp.src('public/stylesheets/*.less')
