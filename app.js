@@ -26,8 +26,16 @@ app.use(bodyParser.urlencoded({extended: true}));
  */
 
 app.get('/', function(req, res) {
+  console.log("I am here");
   res.render('index', {
     bodyHtml: "Yippi the Metis application is up and running"
+  })
+});
+
+app.get('/winning', function(req, res) {
+  console.log("asdasd");
+  res.send( {
+    win: "Yippi the React Workshop application is up and running"
   })
 });
 

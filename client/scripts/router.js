@@ -1,20 +1,23 @@
 /** @jsx React.DOM */
 var director = require('director');
 var React = require('react');
-var MainComponent = require('components/MainComponent');
+var MainComponent = require('./components/MainComponent');
 
-var woopApp = function(channel = 'all') {
-  ChannelActions.change(channel);
+var main = function() {
   React.render(
-  <MainComponent />
+    <MainComponent />,
+    document.body
   );
 };
 
 
 var routes = {
-  '': woopApp
+  '': main
 };
 
+var config = {
+  notfound: main
+};
 
 var router = new director.Router(routes).configure(config);
 
