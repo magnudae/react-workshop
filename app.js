@@ -8,6 +8,15 @@ var hbs = require('hbs');
 var app = express();
 
 
+//CORS middleware
+var allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4000');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+  next();
+};
+
 app.set('json spaces', 2);
 
 app.set('views', './views');
@@ -20,6 +29,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(allowCrossDomain);
 
 /**
  * Set express routes
