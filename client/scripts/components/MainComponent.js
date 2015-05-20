@@ -1,18 +1,20 @@
 /** @jsx React.DOM */
 var React = require('react');
+
+var InputComponent = require('./InputComponent');
 var xhr = require('../util/xhr.js');
 
 
-var MainComponent = React.createClass({
+class MainComponent extends React.Component{
 
-  getInitialState: function(){
-    return {
+  constructor(props){
+    this.state =  {
       win: "lost damn!",
       done: false
     };
-  },
+  }
 
-  render: function() {
+  render() {
     if(!this.state.done) {
       xhr.get('http://localhost:3000/winning ')
         .then((res) => {
@@ -25,10 +27,11 @@ var MainComponent = React.createClass({
    return (
      <div>
        <h1> YEAH BUDDY, I {this.state.win} </h1>
+       <InputComponent />
      </div>
    );
   }
 
-});
+};
 
 module.exports = MainComponent;
