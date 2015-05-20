@@ -12,7 +12,8 @@ var main = function() {
 
 
 var routes = {
-  '': main
+  '': main,
+  'win': main
 };
 
 var config = {
