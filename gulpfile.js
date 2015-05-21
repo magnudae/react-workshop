@@ -25,7 +25,7 @@ var scriptDir = 'client/scripts/';
 var destDir = 'client/dist/';
 
 
-gulp.task('server', function() {
+gulp.task('client-server', function() {
   connect.server({
     root: './client',
     port: 4000,
@@ -52,7 +52,7 @@ gulp.task('build', ['less'], function(callback) {
   callback();
 });
 
-gulp.task('run', ['build', 'watch'], function(callback) {
+gulp.task('server', ['build', 'watch'], function(callback) {
   nodemon({
     script: 'bin/server.js',
     ext: 'js',
@@ -122,7 +122,7 @@ gulp.task('lint', function () {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('scripts', ['lint', 'server'], function () {
+gulp.task('client', ['lint', 'client-server'], function () {
   return compileScripts({ watch: false, debug: false });
 });
 

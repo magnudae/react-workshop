@@ -12,15 +12,6 @@ var InputComponent = React.createClass({
   },
 
   render: function() {
-    if(!this.state.done) {
-      xhr.get('http://localhost:3000/winning ')
-        .then((res) => {
-          this.setState({
-            win: res.win,
-            done: true
-          });
-        });
-    }
     return (
       <div>
         <textarea placeholder={this.state.placeholder} />

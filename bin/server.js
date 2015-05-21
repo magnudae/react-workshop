@@ -1,7 +1,3 @@
-/**
- * Metis server entry point
- */
-
 var app = require('../app');
 var http = require('http');
 
