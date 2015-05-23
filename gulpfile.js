@@ -1,14 +1,8 @@
 var gulp = require('gulp');
-var less = require('gulp-less');
 var path = require('path');
-var nodemon = require('gulp-nodemon');
 var gutil = require('gulp-util');
-var concat      = require('gulp-concat');
 var connect = require('gulp-connect');
-//var browserify = require('gulp-browserify');
 var browserify = require('browserify');
-var jshint      = require('gulp-jshint');
-var hbsfy = require('hbsfy');
 var es6ify = require('es6ify');
 
 var source = require('vinyl-source-stream');
@@ -16,11 +10,8 @@ var watchify = require('watchify');
 var envify = require('envify');
 var reactify = require('reactify');
 var react = require('gulp-react');
-var uglify = require('gulp-uglify');
-var plumber =require('gulp-plumber');
 var glob = require('glob');
 
-var styleDir = './public/stylesheets';
 var scriptDir = 'client/scripts/';
 var destDir = 'client/dist/';
 
@@ -32,41 +23,6 @@ gulp.task('client-server', function() {
     livereload: true
   });
 });
-
-gulp.task('less', function () {
-  return gulp.src('public/stylesheets/*.less')
-    .pipe(less({
-      paths: [ styleDir ]
-    }))
-    .pipe(gulp.dest('public/stylesheets/css'));
-});
-
-gulp.task('watch', function(callback) {
-  gulp.watch('public/stylesheets/less/*.less', ['less']);
-  gulp.watch('templates/*.hbs', ['build']);
-
-  callback();
-});
-
-gulp.task('build', ['less'], function(callback) {
-  callback();
-});
-
-gulp.task('server', ['build', 'watch'], function(callback) {
-  nodemon({
-    script: 'bin/server.js',
-    ext: 'js',
-    ignore: ['node_modules/**', 'public/dist/client.js'],
-    legacyWatch: true
-  })
-    .on('restart', function() {
-      gulp.start('build');
-      gutil.log('server restarted!');
-    });
-
-  callback();
-});
-
 
 var compileScripts = function(opts) {
   var entryFile = scriptDir + 'app.js';
@@ -114,21 +70,7 @@ var compileScripts = function(opts) {
   return bundle();
 };
 
-gulp.task('lint', function () {
-  return gulp.src(['gulpfile.js', scriptDir + '**/*'])
-    .pipe(plumber())
-    .pipe(react())
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'));
-});
-
-gulp.task('client', ['lint', 'client-server'], function () {
+gulp.task('client', ['client-server'], function () {
   return compileScripts({ watch: false, debug: false });
-});
-
-gulp.task('compress', ['scripts'], function () {
-  return gulp.src(destDir + 'app.js')
-    .pipe(uglify())
-    .pipe(gulp.dest(destDir));
 });
 
