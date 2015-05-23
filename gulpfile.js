@@ -73,3 +73,4 @@ gulp.task('client', ['client-server'], function () {
   return compileScripts({ watch: false, debug: false });
 });
 
+gulp.task('default', ['client']);
