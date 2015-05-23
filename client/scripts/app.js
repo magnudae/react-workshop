@@ -1,7 +1,7 @@
 var React = require('react');
+var MainComponent = require('./components/MainComponent');
 
-var router = require('./router');
-
-React.initializeTouchEvents(true);
-
-router.init('/');
+React.render(
+  <MainComponent />,
+  document.body
+);
