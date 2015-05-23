@@ -9,7 +9,6 @@ var source = require('vinyl-source-stream');
 var watchify = require('watchify');
 var envify = require('envify');
 var reactify = require('reactify');
-var react = require('gulp-react');
 var glob = require('glob');
 
 var scriptDir = 'client/scripts/';
