@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
-var xhr = require('../util/xhr.js');
-
+var Actions = require('../actions/Actions.js');
 
 var InputComponent = React.createClass({
 
@@ -15,8 +14,13 @@ var InputComponent = React.createClass({
     return (
       <div>
         <textarea placeholder={this.state.placeholder} />
+        <button onClick={this._onclick} >Text </button>
       </div>
     );
+  },
+
+  _onclick: function() {
+    Actions.testAction("yeah");
   }
 
 });

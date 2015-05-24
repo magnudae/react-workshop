@@ -2,25 +2,38 @@
 var React = require('react');
 
 var InputComponent = require('./InputComponent');
-var xhr = require('../util/xhr.js');
-
+var Store = require('../stores/Store.js');
 
 class MainComponent extends React.Component{
 
   constructor(props){
     this.state =  {
       win: "lost damn!",
-      done: false
+      text: []
     };
   }
 
+  componentDidMount() {
+    Store.addChangeListener(() => {
+      this.setState({
+        text: Store.getText()
+      })
+    });
+  }
+
   render() {
-   return (
-     <div>
-       <h1> YEAH BUDDY, I {this.state.win} </h1>
-       <InputComponent />
-     </div>
-   );
+    var texts = '';
+    this.state.text.forEach((text) => {
+      texts += text + " : ";
+    });
+
+    return (
+      <div>
+        <h1> YEAH BUDDY, I {this.state.win} </h1>
+        <InputComponent />
+        <p> {texts} </p>
+      </div>
+    );
   }
 
 };
