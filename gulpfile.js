@@ -11,6 +11,9 @@ var envify = require('envify');
 var reactify = require('reactify');
 var glob = require('glob');
 
+var jsonServer = require('json-server')
+var nodemon = require('gulp-nodemon');
+
 var scriptDir = 'client/scripts/';
 var destDir = 'client/dist/';
 
@@ -20,6 +23,12 @@ gulp.task('client-server', function() {
     root: './client',
     port: 4000,
     livereload: true
+  });
+});
+
+gulp.task('server', function() {
+  nodemon({
+    script: 'server/server.js'
   });
 });
 
@@ -73,4 +82,4 @@ gulp.task('client', ['client-server'], function () {
   return compileScripts({ watch: false, debug: false });
 });
 
-gulp.task('default', ['client']);
+gulp.task('default', ['server', 'client']);
