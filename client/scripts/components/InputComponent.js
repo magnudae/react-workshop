@@ -4,16 +4,11 @@ var Actions = require('../actions/Actions.js');
 
 var InputComponent = React.createClass({
 
-  getInitialState: function(){
-    return  {
-      placeholder: "Input here"
-    };
-  },
 
   render: function() {
     return (
       <div>
-        <textarea placeholder={this.state.placeholder} />
+        <textarea placeholder="Input here" />
         <button onClick={this._onclick} >Text </button>
       </div>
     );
