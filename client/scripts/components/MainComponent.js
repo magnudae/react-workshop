@@ -2,7 +2,6 @@
 var React = require('react');
 
 var InputComponent = require('./InputComponent');
-var Store = require('../stores/Store.js');
 
 class MainComponent extends React.Component{
 
@@ -14,24 +13,13 @@ class MainComponent extends React.Component{
   }
 
   componentDidMount() {
-    Store.addChangeListener(() => {
-      this.setState({
-        text: Store.getText()
-      })
-    });
   }
 
   render() {
-    var texts = '';
-    this.state.text.forEach((text) => {
-      texts += text + " : ";
-    });
-
     return (
       <div>
         <h1> YEAH BUDDY, I {this.state.win} </h1>
         <InputComponent />
-        <p> {texts} </p>
       </div>
     );
   }
