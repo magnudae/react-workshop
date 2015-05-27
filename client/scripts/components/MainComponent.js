@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react');
 
-var InputComponent = require('./InputComponent');
 
 class MainComponent extends React.Component{
 
@@ -19,7 +18,6 @@ class MainComponent extends React.Component{
     return (
       <div>
         <h1> YEAH BUDDY, I {this.state.win} </h1>
-        <InputComponent />
       </div>
     );
   }
