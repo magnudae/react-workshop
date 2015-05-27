@@ -1,19 +1,15 @@
 var gulp = require('gulp');
-var path = require('path');
 var gutil = require('gulp-util');
 var connect = require('gulp-connect');
 var browserify = require('browserify');
 var es6ify = require('es6ify');
-
 var source = require('vinyl-source-stream');
 var watchify = require('watchify');
 var envify = require('envify');
 var reactify = require('reactify');
-var glob = require('glob');
 
 var scriptDir = 'client/scripts/';
 var destDir = 'client/dist/';
-
 
 gulp.task('client-server', function() {
   connect.server({
@@ -26,11 +22,8 @@ gulp.task('client-server', function() {
 var compileScripts = function(opts) {
   var entryFile = scriptDir + 'app.js';
   var bundles = [ es6ify.runtime, entryFile ];
-  if (opts.test) {
-    var testFiles = glob.sync(testDir + '**/*.js');
-    bundles = bundles.concat(testFiles);
-  }
-  var bOpts = {
+
+  var browserifyOptions = {
     // Required watchify args
     cache: {},
     packageCache: {},
@@ -41,21 +34,17 @@ var compileScripts = function(opts) {
 
   es6ify.traceurOverrides = { experimental: true, blockBinding: true };
 
-  var bundler = browserify(bundles, bOpts);
+  var bundler = browserify(bundles, browserifyOptions);
 
   var bundle = function() {
     gutil.log('Transforming scripts from JSX and ES6 to ES5...');
     return bundler
       .bundle()
       .on('error', gutil.log)
-      .pipe(source(opts.appFile || 'app.js'))
+      .pipe(source('app.js'))
       .pipe(gulp.dest(destDir))
       .pipe(connect.reload());
   };
-
-  if (opts.test) {
-    bundler.plugin(proxyquire.plugin);
-  }
 
   bundler
     .transform(envify)
@@ -70,7 +59,7 @@ var compileScripts = function(opts) {
 };
 
 gulp.task('client', ['client-server'], function () {
-  return compileScripts({ watch: false, debug: false });
+  return compileScripts({ watch: true, debug: true });
 });
 
 gulp.task('default', ['client']);
