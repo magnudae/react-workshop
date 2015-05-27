@@ -4,17 +4,16 @@ var Actions = require('../actions/Actions.js');
 
 var InputComponent = React.createClass({
 
-
   render: function() {
     return (
       <div>
         <textarea placeholder="Input here" />
-        <button onClick={this._onclick} >Text </button>
+        <button onClick={this._onClick}>Text</button>
       </div>
     );
   },
 
-  _onclick: function() {
+  _onClick: function() {
     Actions.testAction("yeah");
   }
 

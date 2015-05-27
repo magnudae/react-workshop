@@ -3,6 +3,14 @@
     {
       "id": 1,
       "body": "First post!"
+    },
+    {
+      "body": "It works!!",
+      "id": 2
+    },
+    {
+      "body": "Cos I'm the taxman, yeah I'm the taxman",
+      "id": 3
     }
   ],
   "comments": [

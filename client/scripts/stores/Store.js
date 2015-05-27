@@ -1,29 +1,36 @@
 var Flux = require('../flux/Flux.js');
 
-var _text = [];
+/*
+ * The store
+ */
+var _texts = [];
+
 
 var Store = Flux.createStore({
+    emitChange: function () {
+      this.emit("CHANGE_EVENT");
+    },
 
-  emitChange: function() {
-    this.emit("CHANGE_EVENT");
+    addChangeListener: function (callback) {
+      this.on("CHANGE_EVENT", callback);
+    },
+
+    removeChangeListener: function (callback) {
+      this.removeListener("CHANGE_EVENT", callback);
+    },
+
+    getTexts: function () {
+      return _texts;
+    }
   },
 
-  addChangeListener: function(callback) {
-    this.on("CHANGE_EVENT", callback);
-  },
+  function (payload) {
+    if(payload.actionType === "TEST_ACTION") {
+      _texts.push(payload.text);
 
-  removeChangeListener: function(callback) {
-    this.removeListener("CHANGE_EVENT", callback);
-  },
-
-  getText: function(){
-    return _text;
+      Store.emitChange();
+    }
   }
-}, function(payload){
-  if(payload.actionType === "TEST_ACTION") {
-    _text.push(payload.text);
-   Store.emitChange();
-  }
-});
+);
 
 module.exports = Store;

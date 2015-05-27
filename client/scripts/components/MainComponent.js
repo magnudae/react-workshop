@@ -4,38 +4,44 @@ var React = require('react');
 var InputComponent = require('./InputComponent');
 var Store = require('../stores/Store.js');
 
-class MainComponent extends React.Component{
+var MainComponent = React.createClass({
 
-  constructor(props){
-    this.state =  {
+  getInitialState: function () {
+    return {
       win: "lost damn!",
-      text: []
+      texts: Store.getTexts()
     };
-  }
+  },
 
-  componentDidMount() {
-    Store.addChangeListener(() => {
-      this.setState({
-        text: Store.getText()
-      })
-    });
-  }
+  componentDidMount: function () {
+    var self = this;
 
-  render() {
-    var texts = '';
-    this.state.text.forEach((text) => {
-      texts += text + " : ";
+    Store.addChangeListener(function () {
+        self.setState({
+          text: Store.getTexts()
+        })
+      }
+    );
+  },
+
+  render: function () {
+    var $paragraphs = this.state.texts.map(function (text, index) {
+      return (
+        <p key={index}>{text}</p>
+      );
     });
 
     return (
       <div>
         <h1> YEAH BUDDY, I {this.state.win} </h1>
+
         <InputComponent />
-        <p> {texts} </p>
+
+        {$paragraphs}
       </div>
     );
   }
 
-};
+});
 
 module.exports = MainComponent;
