@@ -5,4 +5,4 @@ Start the application with ```gulp```, but remember to run ```npm install```firs
 Application found at localhost:4000
 
 
-Slides to this workshop is found [here](https://slides.com/magnusdaehlen/deck-1).
+Slides to this workshop are found [here](https://slides.com/magnusdaehlen/deck-1).
