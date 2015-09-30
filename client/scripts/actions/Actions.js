@@ -6,6 +6,13 @@ var Actions = Flux.createActions({
       actionType: 'TEST_ACTION',
       text: text
     }
+  },
+
+  addTodo: function(todo) {
+    return {
+      actionType: "ADD_TODO",
+      todo: todo
+    };
   }
 });
 

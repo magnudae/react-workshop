@@ -1,6 +1,7 @@
 var Flux = require('../flux/Flux.js');
 
 var _text = [];
+var _todoList = [];
 
 var Store = Flux.createStore({
 
@@ -18,11 +19,18 @@ var Store = Flux.createStore({
 
   getText: function(){
     return _text;
+  },
+  getTodos: function() {
+    return _todoList;
   }
 }, function(payload){
   if(payload.actionType === "TEST_ACTION") {
     _text.push(payload.text);
    Store.emitChange();
+  }
+  else if( payload.actionType === "ADD_TODO") {
+    _todoList.push(payload.todo);
+    Store.emitChange();
   }
 });
 
